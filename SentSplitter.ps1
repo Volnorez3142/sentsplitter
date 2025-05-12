@@ -1,4 +1,4 @@
-﻿#THIS SCRIPT ELEVATES THE STARTED PS SESSION TO ADMIN
+#THIS SCRIPT ELEVATES THE STARTED PS SESSION TO ADMIN
 if (-Not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] 'Administrator')) {
  if ([int](Get-CimInstance -Class Win32_OperatingSystem | Select-Object -ExpandProperty BuildNumber) -ge 6000) {
   $CommandLine = "-File `"" + $MyInvocation.MyCommand.Path + "`" " + $MyInvocation.UnboundArguments
@@ -65,12 +65,12 @@ if (-not $test3142dir) {
     }
 }
 
+#MAKING SURE THE CSV FILE IS CORRECT, SETTING VARIABLES AND CONFIGURING THE MAILBOXES
 Read-Host -Prompt "CHECK C:\BY3142 FOR THE SHARED MAILBOXES CSV FILE. PRESS ANY KEY TO CONTINUE IF THE CONTAININGS OF THE FILE ARE OKAY 1/2"
 Read-Host -Prompt "CHECK C:\BY3142 FOR THE SHARED MAILBOXES CSV FILE. PRESS ANY KEY TO CONTINUE IF THE CONTAININGS OF THE FILE ARE OKAY 2/2"
 
 $mailboxes = Import-Csv -Path $3142csvfullpath
 $okmessage = "OK! `n"
-
 $mailboxes | ForEach-Object {
     Write-Output "==================== `n"
     Write-Output $_.PrimarySmtpAddress
