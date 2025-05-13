@@ -9,7 +9,7 @@ if (-Not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
 
 #DECLARING THE DESKTOP VARIABLE PATH, STARTING THE TRANSCRIPT, SETTING MAILBOXES SENT COPY INTO BOTH ACCOUNTS TO $TRUE
 $DesktopPath = [Environment]::GetFolderPath("Desktop")
-Start-Transcript -path $DesktopPath\AzureConf.txt -append
+Start-Transcript -path $DesktopPath\ExchangeConf.txt -append
 
 #INSTALLING ALL THE DEPENDENCIES AND ALLOWING POLICIES
 $installmoduleprompt = @"
