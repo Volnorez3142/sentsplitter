@@ -49,7 +49,6 @@ if (-not $test3142dir) {
     New-Item -Path "c:\" -Name "by3142" -ItemType "directory"
     Get-Recipient -RecipientTypeDetails SharedMailbox -Resultsize unlimited | select PrimarySmtpAddress | export-csv $3142csvfullpath
 } else {
-    $3142csvfullpath = "$3142csv"+"$counter"+"$csv"
     $test3142csv = Test-Path $3142csvfullpath
     if ($test3142csv -eq $false) {
         Get-Recipient -RecipientTypeDetails SharedMailbox -Resultsize unlimited | select PrimarySmtpAddress | export-csv $3142csvfullpath
