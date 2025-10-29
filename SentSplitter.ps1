@@ -43,8 +43,7 @@ Connect-ExchangeOnline
 $test3142dir = Test-Path C:\by3142
 $3142csv = "C:\by3142\SharedMailboxUsers"
 $counter = [int]$filenumber = 1
-$csv = ".csv"
-$3142csvfullpath = "$3142csv"+"$counter"+"$csv"
+$3142csvfullpath = "$3142csv"+"$counter"+".csv"
 if (-not $test3142dir) {
     New-Item -Path "c:\" -Name "by3142" -ItemType "directory"
     Get-Recipient -RecipientTypeDetails SharedMailbox -Resultsize unlimited | select PrimarySmtpAddress | export-csv $3142csvfullpath
@@ -55,7 +54,7 @@ if (-not $test3142dir) {
     } else {
         while ($test3142csv) {
             $counter = $counter + 1
-            $3142csvfullpath = "$3142csv"+"$counter"+"$csv"
+            $3142csvfullpath = "$3142csv"+"$counter"+".csv"
             $test3142csv = Test-Path $3142csvfullpath
             if ($test3142csv -eq $false) {
                 Get-Recipient -RecipientTypeDetails SharedMailbox -Resultsize unlimited | select PrimarySmtpAddress | export-csv $3142csvfullpath
@@ -69,13 +68,14 @@ Read-Host -Prompt "CHECK C:\BY3142 FOR THE SHARED MAILBOXES CSV FILE. PRESS ANY 
 Read-Host -Prompt "CHECK C:\BY3142 FOR THE SHARED MAILBOXES CSV FILE. PRESS ANY KEY TO CONTINUE IF THE CONTAININGS OF THE FILE ARE OKAY 2/2"
 
 $mailboxes = Import-Csv -Path $3142csvfullpath
-$okmessage = "OK! `n"
 $mailboxes | ForEach-Object {
     Write-Output "==================== `n"
     Write-Output $_.PrimarySmtpAddress
+    Write-Output "Setting $($_.PrimarySmtpAddress) MesageCopySentAsEnabled to True..."
     set-mailbox $_.PrimarySmtpAddress -MessageCopyForSentAsEnabled $True
+    Write-Output "Setting $($_.PrimarySmtpAddress) MessageCopyForSendOnBehalfEnabled to True..."
     set-mailbox $_.PrimarySmtpAddress -MessageCopyForSendOnBehalfEnabled $True
-    Write-Host $okmessage -ForegroundColor Green
+    Write-Host "FINISHED" -ForegroundColor Green
 }
 Stop-Transcript
 
