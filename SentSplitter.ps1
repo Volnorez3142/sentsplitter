@@ -72,9 +72,9 @@ $mailboxes | ForEach-Object {
     Write-Output "==================== `n"
     Write-Output $_.PrimarySmtpAddress
     Write-Output "Setting $($_.PrimarySmtpAddress) MesageCopySentAsEnabled to True..."
-    set-mailbox $_.PrimarySmtpAddress -MessageCopyForSentAsEnabled $True
+    Set-Mailbox $_.PrimarySmtpAddress -MessageCopyForSentAsEnabled $True
     Write-Output "Setting $($_.PrimarySmtpAddress) MessageCopyForSendOnBehalfEnabled to True..."
-    set-mailbox $_.PrimarySmtpAddress -MessageCopyForSendOnBehalfEnabled $True
+    Set-Mailbox $_.PrimarySmtpAddress -MessageCopyForSendOnBehalfEnabled $True
     Write-Host "FINISHED" -ForegroundColor Green
 }
 Stop-Transcript
@@ -89,3 +89,4 @@ ___.           ________  ____   _____ ________
        END OF SCRIPT. PRESS ENTER TO EXIT.       
      THE TRANSCRIPT CAN BE FOUND ON DESKTOP.
                         "
+
